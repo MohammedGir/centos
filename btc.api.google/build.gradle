@@ -1,0 +1,36 @@
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+
+group 'Google_API'
+version = '1.0'
+sourceCompatibility = 1.8
+mainClassName = 'App'
+
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.api-client:google-api-client:1.22.0'
+    compile 'com.google.oauth-client:google-oauth-client-jetty:1.22.0'
+    compile 'com.google.apis:google-api-services-sheets:v4-rev464-1.22.0'
+    compile 'org.hibernate:hibernate-core:5.2.9.Final'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.0.8'
+
+}
+jar {
+    from(configurations.runtime) {
+        manifest {
+            attributes(
+                    'Main-Class': 'App',
+                    'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+            )
+        }
+    }
+}
+
+
